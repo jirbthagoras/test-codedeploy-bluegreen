@@ -14,6 +14,8 @@ find /var/www/html/ -type d -exec chmod 755 {} \;
 nginx -t
 
 # Reload nginx (lebih aman dari restart, tidak drop koneksi aktif)
+systemctl start nginx
+systemctl restart nginx
 systemctl reload nginx
 
 echo "[AfterInstall] nginx berhasil direload."
