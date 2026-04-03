@@ -1,15 +1,32 @@
 version: 0.0
 os: linux
+
 files:
-  - source: .
-    destination: /var/www/html
+  - source: index.html
+    destination: /var/www/html/
+    overwrite: yes
+
+permissions:
+  - object: /var/www/html/
+    pattern: "**"
+    owner: www-data
+    group: www-data
+    mode: 644
+    type:
+      - file
+
 hooks:
   BeforeInstall:
-    - location: scripts/stop_server.sh
-      timeout: 30
-  AfterInstall:
-    - location: scripts/start_server.sh
+    - location: scripts/before_install.sh
       timeout: 60
+      runas: root
+
+  AfterInstall:
+    - location: scripts/after_install.sh
+      timeout: 60
+      runas: root
+
   ValidateService:
-    - location: scripts/health_check.sh
-      timeout: 20
+    - location: scripts/validate_service.sh
+      timeout: 60
+      runas: root
