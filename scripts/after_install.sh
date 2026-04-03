@@ -4,7 +4,7 @@ set -e
 echo "[AfterInstall] Mengatur permission dan reload nginx..."
 
 # Set ownership ke www-data (Ubuntu/Debian default nginx user)
-chown -R www-data:www-data /var/www/html/
+chown -R ec2-user:ec2-user /var/www/html/
 
 # Set permission file
 find /var/www/html/ -type f -exec chmod 644 {} \;
