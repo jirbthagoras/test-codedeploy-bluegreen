@@ -13,25 +13,24 @@ jobs:
         uses: actions/checkout@v6
 
   push-to-s3:
-      - name: Checkout Code
-        uses: actions/checkout@v6
+    - name: Checkout Code
+      uses: actions/checkout@v6
       
-      - name: Create ZIP archive
-        run: zip -r cdapp.zip .
+    - name: Create ZIP archive
+      run: zip -r cdapp.zip .
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.SESSION_TOKEN }}
-          aws-region: us-east-1
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.SESSION_TOKEN }}
+        aws-region: us-east-1
 
-      - name: Push to S3 Bucket
-        run: aws s3 cp ./cdapp.zip s3://codedeploy-bucket-jabriel/cdapp.zip
+    - name: Push to S3 Bucket
+      run: aws s3 cp ./cdapp.zip s3://codedeploy-bucket-jabriel/cdapp.zip
   
   trigger-codedeploy:
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
